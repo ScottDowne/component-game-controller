@@ -1,0 +1,66 @@
+<polymer-element name="ceci-game-controller" extends="ceci-element" attributes="startbuttonvalue" starbuttonvalue="0">
+  <ceci-definition>
+    {
+      "name": "Game Controller",
+      "thumbnail": "./thumbnail.png",
+      "description": "",
+      "broadcasts": {
+        "press": {
+          "label": "",
+          "description": ""
+        },
+        "start": {
+          "label": "",
+          "description": ""
+        }
+      },
+      "attributes": {
+        "startbuttonvalue": {
+          "label": "Start Button Value",
+          "description": "",
+          "editable": "text"
+        }
+      }
+    }
+  </ceci-definition>
+  <template>
+    <link rel="stylesheet" href="component.css"></link>
+    <div class="game-controller">
+      <div class="d-pad-container">
+        <div class="d-pad">
+          <div class="left-button" on-click="{{buttonClicked}}"></div>
+          <div class="up-button" on-click="{{buttonClicked}}"></div>
+          <div class="down-button" on-click="{{buttonClicked}}"></div>
+          <div class="right-button" on-click="{{buttonClicked}}"></div>
+        </div>
+      </div>
+      <div class="start-select-container">
+        <div class="start-select">
+          <div class="select-button" on-click="{{buttonClicked}}"></div>
+          <div class="start-button" on-click="{{startClicked}}"></div>
+        </div>
+      </div>
+      <div class="a-b-buttons-container">
+        <div class="a-b-buttons">
+          <div class="a-button" on-click="{{buttonClicked}}"></div>
+          <div class="b-button" on-click="{{buttonClicked}}"></div>
+        </div>
+      </div>
+    </div>
+    <shadow></shadow>
+  </template>
+  <tags>game</tags>
+    <script>
+      Polymer("ceci-game-controller", {
+        ready: function() {
+          this.super();
+        },
+        buttonClicked: function(e) {
+          this.broadcast("press", e.target.classList[0]);
+        },
+        startClicked: function(e) {
+          this.broadcast("start", this.startbuttonvalue);
+        }
+      });
+    </script>
+</polymer-element>

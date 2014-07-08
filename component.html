@@ -1,23 +1,86 @@
-<polymer-element name="ceci-game-controller" extends="ceci-element" attributes="startbuttonvalue" starbuttonvalue="0">
+<polymer-element name="ceci-game-controller" extends="ceci-element" attributes="leftbuttonvalue upbuttonvalue downbuttonvalue rightbuttonvalue selectbuttonvalue startbuttonvalue abuttonvalue bbuttonvalue" leftbuttonvalue="left" upbuttonvalue="up" downbuttonvalue="down" rightbuttonvalue="right" selectbuttonvalue="select" startbuttonvalue="start" abuttonvalue="a" bbuttonvalue="b">
   <ceci-definition>
     {
       "name": "Game Controller",
       "thumbnail": "./thumbnail.png",
-      "description": "",
+      "description": "A classic NES game controller",
       "broadcasts": {
         "press": {
-          "label": "",
-          "description": ""
+          "label": "Any Button",
+          "description": "Any button was pressed"
+        },
+        "left": {
+          "label": "Left Button",
+          "description": "Left button was pressed"
+        },
+        "up": {
+          "label": "Up Button",
+          "description": "Up button was pressed"
+        },
+        "down": {
+          "label": "Down Button",
+          "description": "Down button was pressed"
+        },
+        "right": {
+          "label": "Right Button",
+          "description": "Right button was pressed"
+        },
+        "select": {
+          "label": "Select Button",
+          "description": "Select button was pressed"
         },
         "start": {
-          "label": "",
-          "description": ""
+          "label": "Start Button",
+          "description": "Start button was pressed"
+        },
+        "abutton": {
+          "label": "A Button",
+          "description": "A button was pressed"
+        },
+        "bbutton": {
+          "label": "B Button",
+          "description": "B button was pressed"
         }
       },
       "attributes": {
+        "leftbuttonvalue": {
+          "label": "Left Button Value",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
+        "upbuttonvalue": {
+          "label": "Up Button Value",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
+        "downbuttonvalue": {
+          "label": "Down Button Value",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
+        "rightbuttonvalue": {
+          "label": "Right Button Value",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
+        "selectbuttonvalue": {
+          "label": "Select Button Value",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
         "startbuttonvalue": {
           "label": "Start Button Value",
-          "description": "",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
+        "abuttonvalue": {
+          "label": "A Button Value",
+          "description": "Value to send when this button is clicked",
+          "editable": "text"
+        },
+        "bbuttonvalue": {
+          "label": "B Button Value",
+          "description": "Value to send when this button is clicked",
           "editable": "text"
         }
       }
@@ -28,22 +91,22 @@
     <div class="game-controller">
       <div class="d-pad-container">
         <div class="d-pad">
-          <div class="left-button" on-click="{{buttonClicked}}"></div>
-          <div class="up-button" on-click="{{buttonClicked}}"></div>
-          <div class="down-button" on-click="{{buttonClicked}}"></div>
-          <div class="right-button" on-click="{{buttonClicked}}"></div>
+          <div class="left-button" on-click="{{leftClicked}}"></div>
+          <div class="up-button" on-click="{{upClicked}}"></div>
+          <div class="down-button" on-click="{{downClicked}}"></div>
+          <div class="right-button" on-click="{{rightClicked}}"></div>
         </div>
       </div>
       <div class="start-select-container">
         <div class="start-select">
-          <div class="select-button" on-click="{{buttonClicked}}"></div>
+          <div class="select-button" on-click="{{selectClicked}}"></div>
           <div class="start-button" on-click="{{startClicked}}"></div>
         </div>
       </div>
       <div class="a-b-buttons-container">
         <div class="a-b-buttons">
-          <div class="a-button" on-click="{{buttonClicked}}"></div>
-          <div class="b-button" on-click="{{buttonClicked}}"></div>
+          <div class="a-button" on-click="{{aButtonClicked}}"></div>
+          <div class="b-button" on-click="{{bButtonClicked}}"></div>
         </div>
       </div>
     </div>
@@ -58,8 +121,37 @@
         buttonClicked: function(e) {
           this.broadcast("press", e.target.classList[0]);
         },
+        leftClicked: function(e) {
+          this.broadcast("left", this.leftbuttonvalue);
+          this.buttonClicked(e);
+        },
+        upClicked: function(e) {
+          this.broadcast("up", this.upbuttonvalue);
+          this.buttonClicked(e);
+        },
+        downClicked: function(e) {
+          this.broadcast("down", this.downbuttonvalue);
+          this.buttonClicked(e);
+        },
+        rightClicked: function(e) {
+          this.broadcast("right", this.rightbuttonvalue);
+          this.buttonClicked(e);
+        },
+        selectClicked: function(e) {
+          this.broadcast("select", this.selectbuttonvalue);
+          this.buttonClicked(e);
+        },
         startClicked: function(e) {
           this.broadcast("start", this.startbuttonvalue);
+          this.buttonClicked(e);
+        },
+        aButtonClicked: function(e) {
+          this.broadcast("abutton", this.abuttonvalue);
+          this.buttonClicked(e);
+        },
+        bButtonClicked: function(e) {
+          this.broadcast("bbutton", this.bbuttonvalue);
+          this.buttonClicked(e);
         }
       });
     </script>

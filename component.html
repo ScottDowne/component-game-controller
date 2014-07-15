@@ -7,7 +7,8 @@
       "broadcasts": {
         "press": {
           "label": "Any Button Pressed",
-          "description": "Any button was pressed"
+          "description": "Any button was pressed",
+          "default": true
         },
         "release": {
           "label": "Any Button Released",
@@ -44,6 +45,10 @@
         "bbutton": {
           "label": "B Button",
           "description": "B button was pressed"
+        },
+        "konami": {
+          "label": "Konami code triggered!",
+          "description": "A classic easter egg to add to your app"
         }
       },
       "attributes": {
@@ -121,6 +126,11 @@
       Polymer("ceci-game-controller", {
         ready: function() {
           this.super();
+
+          // Looking for ↑ ↑ ↓ ↓ ← → ← → B A
+          this.sequence = [];
+          this.KONAMI_CODE = "up,up,down,down,left,right,left,right,b,a";
+
           var that = this;
           function detechTouch() {
             // Disable mouse events
@@ -131,6 +141,17 @@
           this.addEventListener("touchstart", detechTouch);
         },
         onPress: function(e) {
+          var button = e.target.classList[0].split("-")[0];
+          this.sequence.push(button);
+
+          if (this.sequence.length > 10) {
+            this.sequence.shift();
+          }
+
+          if (this.sequence.join(",") == this.KONAMI_CODE) {
+            this.broadcast("konami", this.KONAMI_CODE);
+          }
+
           this.broadcast("press", e.target.classList[0]);
         },
         onRelease: function(e) {
